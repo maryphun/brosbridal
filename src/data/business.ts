@@ -1,6 +1,7 @@
 // Complete these fields before publishing. Never put credentials here.
 export const business = {
   name: 'Bridal Studio', // neutral working title, replace with confirmed brand
+  slogan: 'Your dream wedding should not break your bank',
   whatsapp: '817024003976', // international digits only; no + or spaces
   email: '',
   address: '',

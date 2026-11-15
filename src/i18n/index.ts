@@ -27,11 +27,6 @@ export const copy = {
     "quote": "Request a quote",
     "details": "View details",
     "back": "Back to the collection",
-    "hero": [
-      "Your dream wedding",
-      "should not break",
-      "your bank"
-    ],
     "heroBody": "Wedding photography, gowns and bridal beauty in Kuala Lumpur & Selangor. Choose what you need. Let’s work with your budget.",
     "location": "KUALA LUMPUR & SELANGOR",
     "servicesTitle": "For your wedding",
@@ -167,11 +162,6 @@ export const copy = {
     "quote": "索取报价",
     "details": "查看详情",
     "back": "返回婚纱系列",
-    "hero": [
-      "梦想中的婚礼，",
-      "不必让钱包",
-      "承受压力"
-    ],
     "heroBody": "为吉隆坡与雪兰莪新人提供婚纱、摄影与新娘造型。按需要选择，一起规划适合的预算。",
     "location": "吉隆坡与雪兰莪",
     "servicesTitle": "婚礼所需，用心安排",
@@ -307,11 +297,6 @@ export const copy = {
     "quote": "Minta sebut harga",
     "details": "Lihat butiran",
     "back": "Kembali ke koleksi",
-    "hero": [
-      "Perkahwinan impian anda",
-      "tak perlu membebankan",
-      "kewangan anda"
-    ],
     "heroBody": "Fotografi, gaun dan solekan pengantin di Kuala Lumpur & Selangor. Pilih yang anda perlukan, mengikut bajet anda.",
     "location": "KUALA LUMPUR & SELANGOR",
     "servicesTitle": "Untuk hari perkahwinan anda",
