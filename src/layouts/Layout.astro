@@ -8,6 +8,8 @@ import {copy,languages,languageNames,htmlLanguages,pageKeys,path,type Lang,type 
 import Arrow from '../components/Arrow.astro';
 interface Props {lang:Lang;page:Page;title?:string;route?:string;description?:string;}
 const {lang,page,title,route=page,description}=Astro.props; const t=copy[lang];
+const pageTitle=title||t.nav[pageKeys.indexOf(page)];
+const brandedTitle=pageTitle===business.name?business.name:`${pageTitle} | ${business.name}`;
 const canonical=business.siteUrl?new URL(path(lang,route),business.siteUrl).href:null;
 const chatHref=business.whatsapp?`https://wa.me/${business.whatsapp}?text=${encodeURIComponent(t.book)}`:path(lang,'contact');
 ---
@@ -15,13 +17,13 @@ const chatHref=business.whatsapp?`https://wa.me/${business.whatsapp}?text=${enco
 <html lang={htmlLanguages[lang]}>
  <head>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>{title || t.nav[pageKeys.indexOf(page)]} | {business.name} · Kuala Lumpur & Selangor</title>
+  <title>{pageTitle===business.name?brandedTitle:`${brandedTitle} · Kuala Lumpur & Selangor`}</title>
   <meta name="description" content={description||t.heroBody}/><meta name="theme-color" content="#f5f2ec"/>
   {!business.published && <meta name="robots" content="noindex, nofollow"/>}
   {canonical && <link rel="canonical" href={canonical}/>}
   {business.siteUrl && languages.map(l=><link rel="alternate" hreflang={htmlLanguages[l]} href={new URL(path(l,route),business.siteUrl).href}/>)}
   <meta property="og:type" content="website"/><meta property="og:locale" content={htmlLanguages[lang].replaceAll('-','_')}/>
-  <meta property="og:title" content={`${title||t.nav[pageKeys.indexOf(page)]} | ${business.name}`}/><meta property="og:description" content={description||t.heroBody}/>
+  <meta property="og:title" content={brandedTitle}/><meta property="og:description" content={description||t.heroBody}/>
   <meta property="og:image" content={business.siteUrl?new URL('/images/main-4.webp',business.siteUrl).href:'/images/main-4.webp'}/>
   {canonical && <meta property="og:url" content={canonical}/>}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>

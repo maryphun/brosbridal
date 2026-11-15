@@ -11,7 +11,7 @@ import {imageUrl} from '../lib/media';
 interface Props {lang:Lang;page:Page;dress?:typeof gowns[number]}
 const {lang,page,dress}=Astro.props; const t=copy[lang];
 const categories=['all','pre-wedding','studio','outdoor','wedding-day','rom'];
-const title=dress?dress.title[lang]:page==='home'?business.slogan:t.nav[pageKeys.indexOf(page)];
+const title=dress?dress.title[lang]:page==='home'?business.name:t.nav[pageKeys.indexOf(page)];
 ---
 <Layout lang={lang} page={page} title={title} route={dress?`gowns/${dress.id}`:page}>
 {page==='home' && <Home lang={lang}/> }
