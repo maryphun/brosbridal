@@ -56,8 +56,14 @@ input,textarea { caret-color: #806b4b; }
 .section-wrap { max-width: 1500px; margin: auto; padding: 80px 6.5vw; }
 .skip-link { position: fixed; left: 16px; top: 12px; padding: 12px 20px; background: var(--forest); color: white; z-index: 200; transform: translateY(-160%); }
 .skip-link:focus { transform: none; }
-.button { display: inline-flex; align-items: center; justify-content: center; gap: 25px; min-height: 52px; padding: 15px 24px; color: white; background: var(--forest); font-size: 12px; font-weight: 500; transition: background .25s; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 25px; min-height: 52px; padding: 15px 24px; color: white; background: var(--forest); font-size: 12px; font-weight: 500; transition: background-color 180ms,transform 120ms var(--ease); }
 .button:hover { background: #4a5849; }
+.button:active { transform: translateY(1px); }
+.button svg,.text-link svg,.header-cta svg { transition: transform 180ms var(--ease); }
+.button:focus-visible svg,.text-link:focus-visible svg,.header-cta:focus-visible svg { transform: translateX(3px); }
+@media(hover:hover) {
+  .button:hover svg,.text-link:hover svg,.header-cta:hover svg { transform: translateX(3px); }
+}
 .button-light { background: var(--paper); color: var(--forest); }
 .button-light:hover { background: #e6ded0; }
 .text-link { display: inline-flex; align-items: center; gap: 22px; min-height: 44px; padding: 8px 0; font-size: 12px; font-weight: 500; border-bottom: 1px solid #a6a493; }
@@ -73,7 +79,7 @@ input,textarea { caret-color: #806b4b; }
 .header-cta { font-size: 12px; border-bottom: 1px solid #a6a493; display: inline-flex; align-items: center; gap: 16px; min-height: 44px; white-space: nowrap; }
 .header-cta svg { width: 17px; }
 .menu-toggle { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; flex-direction: column; gap: 6px; }
-.menu-toggle span { width: 23px; height: 1px; background: var(--ink); }
+.menu-toggle span { width: 23px; height: 1px; background: var(--ink); transition: transform 180ms var(--ease); }
 .menu-toggle[aria-expanded=true] span:first-child { transform: translateY(3.5px) rotate(45deg); }
 .menu-toggle[aria-expanded=true] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
 .mobile-nav { position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); padding: 20px 6vw 30px; border-bottom: 1px solid var(--line); }
@@ -83,8 +89,8 @@ input,textarea { caret-color: #806b4b; }
 .hero h1 { font-size: clamp(43px,4.25vw,66px); font-style: normal; line-height: 1.16; max-width: 630px; margin-bottom: 28px; text-wrap: balance; }
 .hero-copy p { max-width: 370px; font-size: 14px; line-height: 1.95; margin-bottom: 28px; }
 .hero-photo { overflow: hidden; background: #1b2b1f; }
-.hero-photo img { width: 100%; height: 100%; object-position: 50% 44%; animation: photo-arrive 1.2s var(--ease); }
-@keyframes photo-arrive { from { clip-path: inset(0 0 2% 0); transform: scale(1.025); } to { clip-path: inset(0); transform: scale(1); } }
+.hero-photo img { width: 100%; height: 100%; object-position: 50% 44%; animation: photo-arrive 760ms var(--ease); }
+@keyframes photo-arrive { from { clip-path: inset(0 8% 0 0); transform: scale(1.025); } to { clip-path: inset(0); transform: scale(1); } }
 .section-heading { display: flex; justify-content: space-between; gap: 40px; align-items: end; margin-bottom: 32px; }
 .section-heading h2 { margin-bottom: 16px; }
 .section-heading p { margin: 0; max-width: 520px; }
@@ -379,4 +385,6 @@ html[lang^=zh] h1:not([lang=en]),html[lang^=zh] h2,html[lang^=zh] h3 { line-heig
 @media(prefers-reduced-motion:reduce) {
   :root { scroll-behavior: auto; }
   *,*:before,*:after { animation: none!important; transition: none!important; }
+  .button,.text-link,.header-cta,.portfolio-filters button { transition: background-color 100ms,color 100ms,border-color 100ms!important; }
+  .button:active,.button:hover svg,.button:focus-visible svg,.text-link:hover svg,.text-link:focus-visible svg,.header-cta:hover svg,.header-cta:focus-visible svg,.service-feature:hover img,.gown-card:hover img { transform: none; }
 }

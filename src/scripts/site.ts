@@ -1,7 +1,19 @@
 import { imageUrl, imageSrcset } from '../lib/media';
+import { cancelMotion, playMotion } from '../lib/motion';
 const menuButton=document.querySelector<HTMLButtonElement>('.menu-toggle');
 const mobileNav=document.querySelector<HTMLElement>('#mobile-nav');
-function setMenu(open:boolean){menuButton?.setAttribute('aria-expanded',String(open));if(menuButton)menuButton.setAttribute('aria-label',(open?menuButton.dataset.closeLabel:menuButton.dataset.openLabel)||'Menu');if(mobileNav)mobileNav.hidden=!open;}
+function setMenu(open:boolean){
+ menuButton?.setAttribute('aria-expanded',String(open));
+ if(menuButton)menuButton.setAttribute('aria-label',(open?menuButton.dataset.closeLabel:menuButton.dataset.openLabel)||'Menu');
+ if(!mobileNav)return;
+ cancelMotion(mobileNav);mobileNav.inert=!open;
+ if(open)mobileNav.hidden=false;
+ if(mobileNav.hidden)return;
+ const animation=playMotion(mobileNav,open
+  ?[{opacity:.7,clipPath:'inset(0 0 18% 0)'},{opacity:1,clipPath:'inset(0)'}]
+  :[{opacity:1},{opacity:0}],open?220:120);
+ if(!open){if(animation)animation.addEventListener('finish',()=>{if(menuButton?.getAttribute('aria-expanded')==='false')mobileNav.hidden=true;},{once:true});else mobileNav.hidden=true;}
+}
 function closeMenu(){setMenu(false);}
 menuButton?.addEventListener('click',()=>setMenu(menuButton.getAttribute('aria-expanded')!=='true'));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuButton?.getAttribute('aria-expanded')==='true'){closeMenu();menuButton.focus();}});
@@ -30,10 +42,11 @@ const lightbox=document.querySelector<HTMLDialogElement>('#lightbox');
 if(lightbox){
  let items:HTMLButtonElement[]=[];let active=0;let opener:HTMLButtonElement|null=null;
  const photo=lightbox.querySelector<HTMLImageElement>('#lightbox-image')!;
+ photo.addEventListener('load',()=>{if(lightbox.open)playMotion(photo,[{opacity:.6},{opacity:1}],180);});
  const prev=lightbox.querySelector<HTMLButtonElement>('.lightbox-prev')!;const next=lightbox.querySelector<HTMLButtonElement>('.lightbox-next')!;
  function show(index:number){active=(index+items.length)%items.length;const item=items[active];photo.src=item.dataset.image!;photo.alt=item.dataset.caption||'';lightbox!.querySelector('#lightbox-caption')!.textContent=photo.alt;lightbox!.querySelector('#lightbox-count')!.textContent=`${active+1} / ${items.length}`;prev.hidden=next.hidden=items.length<2;}
  const close=()=>{if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});lightbox.close();};
- document.querySelectorAll<HTMLButtonElement>('[data-lightbox]').forEach(button=>button.addEventListener('click',()=>{items=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-lightbox]')).filter(b=>!b.closest('[hidden]'));opener=button;show(items.indexOf(button));lightbox.showModal();}));
+ document.querySelectorAll<HTMLButtonElement>('[data-lightbox]').forEach(button=>button.addEventListener('click',()=>{items=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-lightbox]')).filter(b=>!b.closest('[hidden]'));opener=button;show(items.indexOf(button));lightbox.showModal();playMotion(lightbox,[{opacity:.75},{opacity:1}],180);}));
  lightbox.querySelector('#close-lightbox')?.addEventListener('click',close);prev.addEventListener('click',()=>show(active-1));next.addEventListener('click',()=>show(active+1));
  lightbox.addEventListener('close',()=>opener?.focus());
  lightbox.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();show(active+1);}if(e.key==='ArrowLeft'){e.preventDefault();show(active-1);}});
@@ -55,6 +68,6 @@ if(form){
  form.addEventListener('input',invalidatePreview);form.addEventListener('change',invalidatePreview);form.addEventListener('reset',invalidatePreview);
  form.addEventListener('submit',e=>{e.preventDefault();const name=form.querySelector<HTMLInputElement>('#name')!;name.value=name.value.trim();if(!form.reportValidity())return;const data=new FormData(form);const parts=[document.documentElement.lang.startsWith('zh')?'婚礼咨询':document.documentElement.lang.startsWith('ms')?'Pertanyaan perkahwinan':'Bridal consultation'];
  const fields=['name','service','wedding-date','consultation-date','budget','message'];fields.forEach(id=>{const input=form.querySelector<HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement>(`#${id}`)!;let value=String(data.get(id)||'').trim();if(input instanceof HTMLSelectElement)value=input.selectedOptions[0]?.textContent||'';if(!value)return;const label=form.querySelector(`label[for="${id}"]`)?.childNodes[0]?.textContent?.trim()||id;parts.push(`${label}: ${value}`);});if(data.get('dress')){const field=form.querySelector<HTMLInputElement>('#dress-interest')!;const names:Record<string,string>=JSON.parse(field.dataset.names||'{}');const id=String(data.get('dress'));parts.push(`${field.dataset.label}: ${names[id]||id} (${id})`);}
- text.value=parts.join('\n');const send=document.querySelector<HTMLAnchorElement>('#send-whatsapp');const number=form.dataset.whatsapp||'';if(send&&/^\d{8,15}$/.test(number))send.href=`https://wa.me/${number}?text=${encodeURIComponent(text.value)}`;preview.hidden=false;preview.focus();preview.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'});});
+ text.value=parts.join('\n');const send=document.querySelector<HTMLAnchorElement>('#send-whatsapp');const number=form.dataset.whatsapp||'';if(send&&/^\d{8,15}$/.test(number))send.href=`https://wa.me/${number}?text=${encodeURIComponent(text.value)}`;preview.hidden=false;preview.focus();playMotion(preview,[{backgroundColor:'#e9e2d7'},{backgroundColor:'transparent'}],280);preview.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'});});
  document.querySelector('#copy-message')?.addEventListener('click',async()=>{const status=document.querySelector('#copy-status')!;try{await navigator.clipboard.writeText(text.value);status.textContent=form.dataset.copied||'Copied';}catch{text.focus();text.select();status.textContent=form.dataset.copyFailed||'Select and copy the message.';}});
 }
