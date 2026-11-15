@@ -1,11 +1,13 @@
 ---
 import { copy, path, type Lang } from '../i18n';
 import { services } from '../data/content';
+import { business } from '../data/business';
 import Photo from './Photo.astro';
 import Arrow from './Arrow.astro';
 import Packages from './Packages.astro';
 const { lang } = Astro.props as { lang: Lang };
 const t = copy[lang];
+const chatHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(t.book)}`;
 const featured = [
   { service: services[0], destination: 'portfolio' },
   { service: services[4], destination: 'gowns' },
@@ -16,7 +18,7 @@ const featured = [
   <div class="hero-copy">
     <h1><span>{t.hero[0]}</span> <em>{t.hero[1]} <span class="no-wrap">{t.hero[2]}</span></em></h1>
     <p>{t.heroBody}</p>
-    <a class="button" href={path(lang, 'contact')}>{t.book}<Arrow /></a>
+    <a class="button" href={chatHref}>{t.book}<Arrow /></a>
   </div>
   <div class="hero-photo"><Photo id="main-1" lang={lang} eager /></div>
 </section>

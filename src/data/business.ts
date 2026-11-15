@@ -1,7 +1,7 @@
 // Complete these fields before publishing. Never put credentials here.
 export const business = {
   name: 'Bridal Studio', // neutral working title, replace with confirmed brand
-  whatsapp: '', // international digits only, e.g. country code 60; no + or spaces
+  whatsapp: '817024003976', // international digits only; no + or spaces
   email: '',
   address: '',
   region: 'Kuala Lumpur & Selangor',
