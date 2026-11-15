@@ -1,0 +1,8 @@
+---
+import PageView from '../../../components/Page.astro';
+import {languages} from '../../../i18n';
+import {gowns} from '../../../data/content';
+export function getStaticPaths(){return languages.flatMap(lang=>gowns.map(dress=>({params:{lang,id:dress.id},props:{lang,dress}})));}
+const {lang,dress}=Astro.props;
+---
+<PageView lang={lang} page="gowns" dress={dress}/>

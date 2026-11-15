@@ -1,0 +1,81 @@
+name: Check and deploy website
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: cloudflare-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  ASTRO_TELEMETRY_DISABLED: '1'
+  WRANGLER_SEND_METRICS: 'false'
+
+jobs:
+  website:
+    name: Validate and deploy brosbridal
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Check Astro and TypeScript
+        run: npm run check
+
+      - name: Build website
+        run: npm run build
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          PUBLIC_IMAGE_BASE_URL: ${{ vars.PUBLIC_IMAGE_BASE_URL }}
+
+      - name: Check Cloudflare deployment package
+        run: npm run deploy:check
+
+      - name: Check deployment credential
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::Add the CLOUDFLARE_API_TOKEN repository secret in Settings > Secrets and variables > Actions, then re-run this workflow."
+            exit 1
+          fi
+
+      - name: Deploy to Cloudflare Workers
+        id: deploy
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: '4f94885417b644b2040a2664c114f0d9'
+          wranglerVersion: '4.162.0'
+          command: deploy --keep-vars
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Show deployment link
+        if: steps.deploy.outcome == 'success'
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: |
+          printf '### Website deployed\n\n%s\n' "$DEPLOYMENT_URL" >> "$GITHUB_STEP_SUMMARY"

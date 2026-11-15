@@ -1,0 +1,9 @@
+---
+import { gallery } from '../data/content';
+import type { Lang } from '../i18n';
+import { imageUrl, imageInfo, imageSrcset } from '../lib/media';
+interface Props { id:string; lang:Lang; alt?:string; class?:string; eager?:boolean; }
+const {id,lang,alt,class:className='',eager=false}=Astro.props;
+const text=alt || gallery.find(p=>p.id===id)?.alt[lang] || ({en:'Couple in bridal attire from the supplied collection',zh:'所提供摄影集中的婚纱新人肖像',ms:'Pasangan dalam busana pengantin daripada koleksi yang dibekalkan'})[lang];
+---
+<img class={className} src={imageUrl(id)} srcset={imageSrcset(id)} sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 60vw" width={imageInfo(id).width} height={imageInfo(id).height} alt={text} loading={eager?'eager':'lazy'} fetchpriority={eager?'high':'auto'} decoding="async" />

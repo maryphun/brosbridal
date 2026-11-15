@@ -1,0 +1,77 @@
+{
+  "main-0": {
+    "width": 2000,
+    "height": 3000,
+    "smallWidth": 700
+  },
+  "main-1": {
+    "width": 2000,
+    "height": 3000,
+    "smallWidth": 700
+  },
+  "main-2": {
+    "width": 2000,
+    "height": 3000,
+    "smallWidth": 700
+  },
+  "main-3": {
+    "width": 2000,
+    "height": 3000,
+    "smallWidth": 700
+  },
+  "main-4": {
+    "width": 2000,
+    "height": 3000,
+    "smallWidth": 700
+  },
+  "outdoor-0": {
+    "width": 1200,
+    "height": 1800,
+    "smallWidth": 700
+  },
+  "outdoor-1": {
+    "width": 1440,
+    "height": 2160,
+    "smallWidth": 700
+  },
+  "outdoor-2": {
+    "width": 1200,
+    "height": 1800,
+    "smallWidth": 700
+  },
+  "outdoor-3": {
+    "width": 1440,
+    "height": 2226,
+    "smallWidth": 700
+  },
+  "outdoor-4": {
+    "width": 1440,
+    "height": 2206,
+    "smallWidth": 700
+  },
+  "studio-0": {
+    "width": 2000,
+    "height": 2980,
+    "smallWidth": 700
+  },
+  "studio-1": {
+    "width": 2000,
+    "height": 2972,
+    "smallWidth": 700
+  },
+  "studio-2": {
+    "width": 2000,
+    "height": 2976,
+    "smallWidth": 700
+  },
+  "studio-3": {
+    "width": 2000,
+    "height": 2735,
+    "smallWidth": 700
+  },
+  "studio-4": {
+    "width": 2000,
+    "height": 2980,
+    "smallWidth": 700
+  }
+}
