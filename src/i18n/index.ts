@@ -2,7 +2,7 @@ export const languages = ['en', 'zh', 'ms'] as const;
 export type Lang = typeof languages[number];
 export const languageNames = { en: 'EN', zh: '中文', ms: 'BM' };
 export const htmlLanguages = { en: 'en-MY', zh: 'zh-Hans-MY', ms: 'ms-MY' };
-export const pageKeys = ['home','services','gowns','portfolio','packages','about','contact'] as const;
+export const pageKeys = ['home','services','gowns','portfolio','about','contact'] as const;
 export type Page = typeof pageKeys[number];
 export type Localized = Record<Lang, string>;
 export const local = (en:string, zh:string, ms:string): Localized => ({en,zh,ms});
@@ -11,10 +11,9 @@ export const copy = {
   "en": {
     "nav": [
       "Home",
-      "Services",
+      "Services & packages",
       "Gowns",
       "Photos",
-      "Packages",
       "About",
       "Contact"
     ],
@@ -64,7 +63,7 @@ export const copy = {
     "footer": "Photography, gowns and bridal beauty in Kuala Lumpur & Selangor.",
     "imageNote": "Supplied photographs are for this preview. Portfolio attribution and gown availability are unconfirmed.",
     "rights": "All photography remains with its respective rights holders.",
-    "servicePageTitle": "Our services",
+    "servicePageTitle": "Services & packages",
     "servicePageBody": "Choose what you need. We’ll put together a quote around your plans.",
     "gownsPageTitle": "Find your gown",
     "gownsPageBody": "Explore the styles and ask about a fitting.",
@@ -146,10 +145,9 @@ export const copy = {
   "zh": {
     "nav": [
       "首页",
-      "服务",
+      "服务与配套",
       "婚纱",
       "摄影",
-      "配套",
       "关于我们",
       "联系"
     ],
@@ -199,7 +197,7 @@ export const copy = {
     "footer": "吉隆坡与雪兰莪的婚纱、摄影与新娘造型服务。",
     "imageNote": "所提供照片用于本次预览，作品归属及婚纱库存尚待确认。",
     "rights": "摄影版权归各自权利人所有。",
-    "servicePageTitle": "我们的服务",
+    "servicePageTitle": "服务与配套",
     "servicePageBody": "选择你需要的服务，我们再按计划提供报价。",
     "gownsPageTitle": "找到心仪婚纱",
     "gownsPageBody": "探索款式，咨询试纱安排。",
@@ -281,10 +279,9 @@ export const copy = {
   "ms": {
     "nav": [
       "Utama",
-      "Servis",
+      "Servis & pakej",
       "Gaun",
       "Foto",
-      "Pakej",
       "Tentang Kami",
       "Hubungi"
     ],
@@ -334,7 +331,7 @@ export const copy = {
     "footer": "Fotografi, gaun dan solekan pengantin di Kuala Lumpur & Selangor.",
     "imageNote": "Foto dibekalkan untuk pratonton ini. Atribusi portfolio dan stok gaun belum disahkan.",
     "rights": "Hak fotografi kekal milik pemegang hak masing-masing.",
-    "servicePageTitle": "Perkhidmatan kami",
+    "servicePageTitle": "Servis & pakej",
     "servicePageBody": "Pilih yang anda perlukan. Kami sediakan sebut harga mengikut rancangan anda.",
     "gownsPageTitle": "Temui gaun pilihan",
     "gownsPageBody": "Terokai gaya dan tanya tentang sesi mencuba.",

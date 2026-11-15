@@ -30,7 +30,7 @@ const chatHref=business.whatsapp?`https://wa.me/${business.whatsapp}?text=${enco
   <a class="skip-link" href="#main">{t.skip}</a>
   <header class="site-header">
    <a class="wordmark" href={path(lang)} aria-label={`${business.name} — ${t.nav[0]}`}><span>{business.name}</span></a>
-   <nav class="desktop-nav" aria-label={t.menu}>{pageKeys.slice(1,5).map((p,i)=><a href={path(lang,p)} aria-current={page===p?'page':undefined}>{t.nav[i+1]}</a>)}</nav>
+   <nav class="desktop-nav" aria-label={t.menu}>{pageKeys.slice(1,4).map((p,i)=><a href={path(lang,p)} aria-current={page===p?'page':undefined}>{t.nav[i+1]}</a>)}</nav>
    <div class="header-actions"><label class="sr-only" for="language">{t.language}</label><select id="language" data-language-switch data-route={route}>{languages.map(l=><option value={l} selected={lang===l}>{languageNames[l]}</option>)}</select><a class="header-cta" href={chatHref}>{t.book}<Arrow/></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label={t.menu}><span></span><span></span></button></div>
    <nav id="mobile-nav" class="mobile-nav" aria-label={t.menu} hidden>{pageKeys.map((p,i)=><a href={path(lang,p)} aria-current={page===p?'page':undefined}>{t.nav[i]}</a>)}</nav>
   </header>
