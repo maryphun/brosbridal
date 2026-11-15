@@ -13,6 +13,9 @@
   --line: #d8d4cb;
   --champagne: #e9e2d7;
   --forest: #343f35;
+  --control-border: #858578;
+  --body-mobile: 15px;
+  --label-mobile: 14px;
   --ease: cubic-bezier(.16,1,.3,1);
   color-scheme: light;
   font-family: var(--font-sans);
@@ -147,6 +150,7 @@ input,textarea { caret-color: #806b4b; }
 .sticky-chat { position: fixed; z-index: 20; bottom: 20px; right: 20px; background: var(--forest); color: var(--paper); padding: 12px 17px; display: flex; align-items: center; gap: 10px; font-size: 11px; min-height: 44px; box-shadow: 0 5px 20px #182c2422; }
 .page-heading { display: grid; grid-template-columns: 1.2fr 1fr; gap: 8vw; align-items: end; padding-top: 64px; padding-bottom: 48px; }
 .page-heading p { margin: 0; font-size: 14px; max-width: 450px; }
+.section-jumps { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 20px; }
 .service-list { padding-top: 0; }
 .service-row { display: grid; grid-template-columns: .85fr 1.3fr; gap: 8vw; padding: 32px 0; border-top: 1px solid var(--line); scroll-margin-top: 30px; }
 .service-row h2 { font-size: 31px; }
@@ -208,7 +212,7 @@ input,textarea { caret-color: #806b4b; }
 .form-field { display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
 .form-field label { font-size: 13px; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
 .form-field label small { font-size: 11px; color: var(--muted); margin-left: auto; }
-.form-field input,.form-field select,.form-field textarea { width: 100%; border: 1px solid #c8c7bc; border-radius: 0; background: transparent; min-height: 50px; padding: 12px 14px; font-size: 14px; }
+.form-field input,.form-field select,.form-field textarea { width: 100%; border: 1px solid var(--control-border); border-radius: 0; background: transparent; min-height: 50px; padding: 12px 14px; font-size: 14px; }
 .form-field input:focus,.form-field select:focus,.form-field textarea:focus { border-color: var(--forest); }
 .form-field textarea { resize: vertical; min-height: 110px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -289,12 +293,11 @@ html[lang^=zh] h1:not([lang=en]),html[lang^=zh] h2,html[lang^=zh] h3 { line-heig
   .hero { grid-template-columns: 1fr; height: auto; max-height: none; min-height: 0; }
   .hero-copy { padding: 36px 7vw 40px; }
   .hero h1 { font-size: clamp(38px,10.1vw,48px); line-height: 1.16; margin-bottom: 22px; }
-  .hero-copy p { font-size: 13px; max-width: 350px; margin-bottom: 24px; }
+  .hero-copy p { max-width: 350px; margin-bottom: 24px; }
   .hero .button { font-size: 12px; min-height: 50px; padding: 14px 20px; }
   .hero-photo { height: 440px; }
   .hero-photo img { object-position: 50% 46%; }
   .section-heading { display: block; margin-bottom: 26px; }
-  .section-heading p { font-size: 13px; }
   .section-heading>.text-link { margin-top: 14px; }
   .service-features { grid-template-columns: 1fr; gap: 26px; }
   .service-feature { display: grid; grid-template-columns: 140px minmax(0,1fr); gap: 20px; align-items: center; }
@@ -304,17 +307,14 @@ html[lang^=zh] h1:not([lang=en]),html[lang^=zh] h2,html[lang^=zh] h3 { line-heig
   .feature-title svg { width: 17px; margin-top: 5px; }
   .package-grid { grid-template-columns: 1fr; gap: 32px; }
   .package h3,.package-compact .package h3 { font-size: 28px; }
-  .package p,.package ul { font-size: 13px; }
   .package-compact .package-copy { display: block; }
   .package-compact .package p { margin-top: 12px; }
   .package-compact .package .text-link { margin-top: 12px; }
   .faq { grid-template-columns: 1fr; gap: 28px; }
-  .faq summary { font-size: 13px; }
-  .faq details p { font-size: 13px; }
   .consultation-banner { padding: 40px 7vw; }
   .consultation-banner>div { display: block; }
   .consultation-banner h2 { font-size: 32px; }
-  .consultation-banner p { font-size: 13px; margin: 16px 0 24px; }
+  .consultation-banner p { margin: 16px 0 24px; }
   .site-footer { padding: 40px 7vw 90px; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 28px 20px; margin-bottom: 30px; }
   .footer-top>div:first-child { grid-column: 1/-1; }
@@ -327,15 +327,12 @@ html[lang^=zh] h1:not([lang=en]),html[lang^=zh] h2,html[lang^=zh] h3 { line-heig
   .sticky-chat { right: 14px; bottom: 14px; font-size: 11px; padding: 11px 15px; }
   .page-heading { display: block; padding-top: 40px; padding-bottom: 32px; }
   .page-heading h1 { margin-bottom: 20px; }
-  .page-heading p { font-size: 13px; }
   .service-list,.catalog,.portfolio,.package-page { padding-top: 0; }
   .service-row { grid-template-columns: 1fr; gap: 16px; padding: 25px 0; }
   .service-row h2 { font-size: 29px; }
-  .service-row p { font-size: 13px; }
   .filter-bar { justify-content: space-between; gap: 12px; }
-  .filter-field { gap: 10px; font-size: 11px; }
-  .filter-field select { min-width: 90px; max-width: 130px; font-size: 12px; }
-  .catalog-note { font-size: 11px; }
+  .filter-field { gap: 10px; }
+  .filter-field select { min-width: 90px; max-width: 130px; }
   .gown-grid { grid-template-columns: 1fr; gap: 32px; }
   .gown-card-title { flex-direction: row; align-items: center; }
   .gown-card-title h2 { font-size: 29px; }
@@ -343,26 +340,27 @@ html[lang^=zh] h1:not([lang=en]),html[lang^=zh] h2,html[lang^=zh] h3 { line-heig
   .dress-grid { grid-template-columns: 1fr; gap: 30px; }
   .dress-info { position: static; padding-top: 0; }
   .dress-info h1 { font-size: 40px; }
-  .dress-info p { font-size: 13px; }
   .dress-main img { height: 500px; }
   .portfolio-filters { gap: 0 22px; padding: 4px 0; }
-  .portfolio-filters button { font-size: 11px; padding: 13px 0; }
+  .portfolio-filters button { padding: 13px 0; }
   .masonry { column-gap: 14px; }
   .masonry figure { margin-bottom: 14px; }
   .expand-icon { opacity: 1; bottom: 8px; right: 8px; padding: 6px; }
   .expand-icon svg { width: 14px; height: 14px; }
   .about-intro { grid-template-columns: 1fr; gap: 24px; }
-  .about-intro p { font-size: 13px; }
   .about-intro p.lead { font-size: 15px; }
   .about-photo img { height: 460px; }
   .contact { grid-template-columns: 1fr; gap: 24px; padding-top: 40px; }
   .contact-intro h1 { margin-bottom: 20px; }
-  .contact-intro p { font-size: 13px; margin-bottom: 12px; }
+  .contact-intro p { margin-bottom: 12px; }
   .contact-location { margin-top: 18px; }
   .form-field input,.form-field select,.form-field textarea { font-size: 16px; }
   .form-row { grid-template-columns: 1fr; gap: 0; }
-  .form-details summary { font-size: 12px; }
-  .form-hint { font-size: 11px; }
+  .hero-copy p,.section-heading p,.page-heading p,.service-row p,.package p,.package ul,.faq details p,.consultation-banner p,.dress-info p,.about-intro p,.contact-intro p { font-size: var(--body-mobile); }
+  .text-link,.button,.hero .button,.filter-field,.portfolio-filters button,.form-field label,.form-details summary,.form-hint,.package-extras,.gown-card-title>span,.faq summary { font-size: var(--label-mobile); }
+  .form-field label small,.catalog-note,.small-label,.result-count,.package-note { font-size: 13px; }
+  .filter-bar { flex-wrap: wrap; }
+  .filter-field select { font-size: 16px; }
   #lightbox { padding: 65px 12px 40px; }
   #lightbox-image { max-height: calc(100svh - 160px); }
   #lightbox figcaption { font-size: 11px; max-width: 90%; }
