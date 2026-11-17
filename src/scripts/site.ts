@@ -1,5 +1,6 @@
 import { imageUrl, imageSrcset } from '../lib/media';
 import { cancelMotion, playMotion } from '../lib/motion';
+import { startPageEntrances } from '../lib/entrances';
 const menuButton=document.querySelector<HTMLButtonElement>('.menu-toggle');
 const mobileNav=document.querySelector<HTMLElement>('#mobile-nav');
 function setMenu(open:boolean){
@@ -71,3 +72,5 @@ if(form){
  text.value=parts.join('\n');const send=document.querySelector<HTMLAnchorElement>('#send-whatsapp');const number=form.dataset.whatsapp||'';if(send&&/^\d{8,15}$/.test(number))send.href=`https://wa.me/${number}?text=${encodeURIComponent(text.value)}`;preview.hidden=false;preview.focus();playMotion(preview,[{backgroundColor:'#e9e2d7'},{backgroundColor:'transparent'}],280);preview.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'});});
  document.querySelector('#copy-message')?.addEventListener('click',async()=>{const status=document.querySelector('#copy-status')!;try{await navigator.clipboard.writeText(text.value);status.textContent=form.dataset.copied||'Copied';}catch{text.focus();text.select();status.textContent=form.dataset.copyFailed||'Select and copy the message.';}});
 }
+
+startPageEntrances();

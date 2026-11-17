@@ -10,13 +10,14 @@ export function cancelMotion(element: HTMLElement) {
   animation.cancel();
 }
 
-export function playMotion(element: HTMLElement, frames: Keyframe[], duration = 200) {
+export function playMotion(element: HTMLElement, frames: Keyframe[], duration = 200, options: Pick<KeyframeAnimationOptions, 'delay' | 'fill' | 'easing'> = {}) {
   cancelMotion(element);
   if (preference.matches || typeof element.animate !== 'function') return;
 
   const animation = element.animate(frames, {
     duration,
     easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+    ...options,
   });
   current.set(element, animation);
   running.add(animation);
